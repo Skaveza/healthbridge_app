@@ -47,7 +47,7 @@ python app.py
 ```
 
 
-# ---- How to Use the API ----
+# How to Use the API 
 - Access Swagger UI at: http://127.0.0.1:5000/apidocs
  - Use the /rank_facilities POST endpoint to submit your health need and location
    JSON Example:
@@ -58,7 +58,7 @@ python app.py
 
  The API will respond with a ranked list of facilities tailored to your needs.
 
-# ---- Troubleshooting ----
+# Troubleshooting 
  - Ensure Python 3 is installed and accessible as python3
  - If virtualenv commands fail, install venv: sudo apt-get install python3-venv
  - Check firewall or port conflicts if Flask server doesn't start properly
