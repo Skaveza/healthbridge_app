@@ -10,6 +10,41 @@ swagger = Swagger(app)
 # Load facilities data once
 with open("facilities.json") as f:
     FACILITIES = json.load(f)
+  
+def format_facility_for_api(facility):
+    """Format facility data for clearer API response."""
+    return {
+        "name": facility["name"],
+        "services_offered": facility["all_services"],
+        "matched_services": facility["matched_tags"],
+        "distance_km": round(facility["distance_km"], 1),
+        "safety_rating": facility["safety_score"],
+        "overall_match_score": round(facility["final_score"], 2)
+    }
+
+@app.route('/health_needs', methods=['GET'])
+def list_health_needs():
+    """
+    Get available health needs
+    ---
+    tags:
+      - Health Needs
+    responses:
+      200:
+        description: A list of available health needs
+        schema:
+          type: array
+          items:
+            type: object
+            properties:
+              label:
+                type: string
+                example: Maternity and Delivery
+              value:
+                type: string
+                example: maternity
+    """
+    return jsonify(get_all_needs())
 
 @app.route('/rank_facilities', methods=['POST'])
 def rank_facilities_api():
@@ -53,30 +88,6 @@ def rank_facilities_api():
 
     ranked = rank_facilities(FACILITIES, need_value, user_location)
     return jsonify(ranked)
-
-@app.route('/health_needs', methods=['GET'])
-def list_health_needs():
-    """
-    Get available health needs
-    ---
-    tags:
-      - Health Needs
-    responses:
-      200:
-        description: A list of available health needs
-        schema:
-          type: array
-          items:
-            type: object
-            properties:
-              label:
-                type: string
-                example: Maternity and Delivery
-              value:
-                type: string
-                example: maternity
-    """
-    return jsonify(get_all_needs())
 
 if __name__ == '__main__':
     app.run(debug=True)

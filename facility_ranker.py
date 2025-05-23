@@ -85,6 +85,14 @@ if __name__ == "__main__":
 
     ranked = rank_facilities(facilities, user_need, user_location)
 
-    print(f"\nTop facilities for: {user_need.upper()}\n")
-    for f in ranked:
-        print(f"{f['name']} - Score: {f['final_score']} | Distance: {f['distance_km']} km | Safety: {f['safety_score']}/10 | Matched: {f['matched_tags']}")
+    print(f"\nTop Facilities for: {user_need.upper()}\n")
+
+    for i, f in enumerate(ranked, 1):
+        matched_services = ', '.join(f['matched_tags']) if f['matched_tags'] else 'None'
+        all_services = ', '.join(f['all_services'])
+        print(f"{i}. {f['name']}")
+        print(f"   - Services Offered: {all_services}")
+        print(f"   - Matched Services for You: {matched_services}")
+        print(f"   - Distance: {f['distance_km']:.1f} km from your location")
+        print(f"   - Safety Rating: {f['safety_score']} / 10")
+        print(f"   - Overall Match Quality: {f['final_score']:.2f} / 1.0\n")
