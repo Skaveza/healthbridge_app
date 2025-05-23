@@ -1,5 +1,3 @@
-#!/bin/bash
-#
 # HealthBridge App API
 #
 # This project ranks health facilities based on user health needs and location.
