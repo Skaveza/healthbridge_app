@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Hope Health Clinic",
+    "services": ["maternity", "delivery", "obgyn", "pediatrics", "sti", "family_planning"],
+    "location": {"lat": -1.29, "lng": 36.82},
+    "safety_score": 8.5
+  },
+  {
+    "name": "Urban Family Center",
+    "services": ["pediatrics", "child_health", "vaccination"],
+    "location": {"lat": -1.30, "lng": 36.81},
+    "safety_score": 7.9
+  },
+  {
+    "name": "Safe Women’s Clinic",
+    "services": ["gynecology", "family_planning", "fertility", "obgyn"],
+    "location": {"lat": -1.31, "lng": 36.79},
+    "safety_score": 9.1
+  },
+  {
+    "name": "Rapid Response Medical Center",
+    "services": ["rape", "sexual_assault", "sti", "hiv", "gbv_support", "pep"],
+    "location": {"lat": -1.28, "lng": 36.83},
+    "safety_score": 8.2
+  },
+  {
+    "name": "Neighborhood Wellness Hub",
+    "services": ["maternity", "delivery", "labor", "pediatrics", "child_health"],
+    "location": {"lat": -1.27, "lng": 36.84},
+    "safety_score": 7.3
+  }
+]
