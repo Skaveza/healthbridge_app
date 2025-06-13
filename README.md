@@ -1,66 +1,167 @@
 # HealthBridge App API
 
-This project ranks health facilities based on user health needs and location.  
-The API is built with Flask and uses Flasgger to provide Swagger UI documentation.
+**HealthBridge** ranks nearby health facilities based on a user's health needs and location.  
+The API is built using **Flask** and documented with **Flasgger** (Swagger UI).
 
-----
+---
 
 ## Features
-- Load health facility data from JSON  
-- Accept user health need and location to rank nearby facilities  
-- Outputs ranked list with match score, safety, and distance info  
 
-----
+- Loads health facility data from a JSON file  
+- Accepts user’s health need and location as input  
+- Returns a ranked list of facilities based on:
+  - Match score
+  - Safety rating
+  - Distance from the user
 
-## Prerequisites
-- Python 3.7 or higher  
-- Git (optional, for cloning repo)  
+---
 
-----
+## Quick Start
 
-## Setup & Run Instructions
-
-1. Clone the repository  
 ```bash
 git clone https://github.com/Skaveza/healthbridge_app.git
 cd healthbridge_app
-```
-
-# 2. Create Python virtual environment
-```bash
 python3 -m venv venv
-```
-
-# 3. Activate virtual environment
-```bash
 source venv/bin/activate
-```
-
-# 4. Install required Python packages
-```bash
 pip install -r requirements.txt
-```
-
-# 5. Run the Flask app
-```bash
 python app.py
-```
+Access the API at: http://127.0.0.1:5000/apidocs
 
+⚙️ Setup & Run Instructions
+1. Clone the Repository
+bash
+Copy
+Edit
+git clone https://github.com/Skaveza/healthbridge_app.git
+cd healthbridge_app
+2. Create a Virtual Environment
+bash
+Copy
+Edit
+python3 -m venv venv
+3. Activate the Virtual Environment
+bash
+Copy
+Edit
+source venv/bin/activate
+4. Install Required Dependencies
+bash
+Copy
+Edit
+pip install -r requirements.txt
+5. Run the Flask App
+bash
+Copy
+Edit
+python app.py
+The app will start at: http://127.0.0.1:5000
 
-# How to Use the API 
-- Access Swagger UI at: http://127.0.0.1:5000/apidocs
- - Use the /rank_facilities POST endpoint to submit your health need and location
-   JSON Example:
-   {
-     "need_value": "pediatrics",
-     "user_location": {"lat": -1.29, "lng": 36.82}
-   }
+ How to Use the API
+ Swagger UI
+Navigate to:
 
- The API will respond with a ranked list of facilities tailored to your needs.
+arduino
+Copy
+Edit
+http://127.0.0.1:5000/apidocs
+ Endpoint: /rank_facilities (POST)
+Use this endpoint to rank nearby health facilities based on your health need and location.
 
-# Troubleshooting 
- - Ensure Python 3 is installed and accessible as python3
- - If virtualenv commands fail, install venv: sudo apt-get install python3-venv
- - Check firewall or port conflicts if Flask server doesn't start properly
+ Example JSON Request
+json
+Copy
+Edit
+{
+  "need_value": "pediatrics",
+  "user_location": {
+    "lat": -1.29,
+    "lng": 36.82
+  }
+}
+Example JSON Response
+json
+Copy
+Edit
+[
+  {
+    "facility_name": "Hope Medical Center",
+    "match_score": 0.93,
+    "distance_km": 2.5,
+    "safety_rating": "High",
+    "location": {
+      "lat": -1.288,
+      "lng": 36.821
+    }
+  }
+]
+ Supported Health Needs
+Available values for need_value include:
 
-# Enjoy your Health Bridge Version1 API!
+pediatrics
+
+cardiology
+
+emergency
+
+general
+
+(See health_needs.py for the full list of supported categories.)
+
+ Ranking Criteria
+Facilities are ranked using a combination of:
+
+Match score (how well the facility meets the health need)
+
+Distance (from user location)
+
+Safety rating (predefined or scored from data)
+
+Note: The algorithm currently gives equal weight to each of these factors. This can be customized in future versions.
+
+ API Response Codes
+200: Success — returns a ranked list of facilities
+
+400: Bad Request — missing or invalid input fields
+
+404: No matching facilities found for the given criteria
+
+ Validation Rules
+lat and lng must be valid geographic coordinates
+
+need_value must match one of the supported health need categories
+
+Both fields are required in the request
+
+ Data Requirements
+The file facilities.json must be placed in the project root directory.
+
+ Sample facilities.json Structure
+json
+Copy
+Edit
+[
+  {
+    "facility_name": "Hope Medical Center",
+    "location": {
+      "lat": -1.288,
+      "lng": 36.821
+    },
+    "services": ["pediatrics", "general", "emergency"],
+    "safety_rating": "High"
+  }
+]
+🛠 Troubleshooting
+Ensure Python 3 is installed and accessible via python3
+
+If venv creation fails, install it using:
+
+bash
+Copy
+Edit
+sudo apt-get install python3-venv
+If Flask doesn't start, check for firewall or port conflicts
+
+ Notes
+Update the repository URL in this README if you move or fork the project
+
+Make sure health_needs.py and facilities.json are correctly configured
